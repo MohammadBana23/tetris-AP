@@ -20,14 +20,14 @@
             <Label text="Score:" styleClass="scoreClass"/>
             <Text text="Text" fx:id="scoreValue" styleClass="scoreClass"/>
         </VBox>
-        <VBox alignment="CENTER">
-            <Label text="Next brick" styleClass="nextBrickLabel"/>
-            <BorderPane styleClass="nextBrick" prefWidth="100" prefHeight="70" maxWidth="100">
-                <center>
-                    <GridPane fx:id="nextBrick" alignment="CENTER" hgap="1" vgap="1"/>
-                </center>
-            </BorderPane>
-        </VBox>
+<!--        <VBox alignment="CENTER">-->
+<!--&lt;!&ndash;            <Label text="Next brick" styleClass="nextBrickLabel"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <BorderPane styleClass="nextBrick" prefWidth="100" prefHeight="70" maxWidth="100">&ndash;&gt;-->
+<!--&lt;!&ndash;                <center>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <GridPane fx:id="nextBrick" alignment="CENTER" hgap="1" vgap="1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                </center>&ndash;&gt;-->
+<!--&lt;!&ndash;            </BorderPane>&ndash;&gt;-->
+<!--        </VBox>-->
         <Button text="New Game" onAction="#newGame" styleClass="ipad-dark-grey" prefWidth="140"/>
         <ToggleButton text="Pause" styleClass="ipad-dark-grey" onAction="#pauseGame" prefWidth="140"
                       fx:id="pauseButton"/>

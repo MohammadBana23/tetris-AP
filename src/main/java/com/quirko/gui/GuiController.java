@@ -92,6 +92,10 @@ public class GuiController implements Initializable {
                         moveDown(new MoveEvent(EventType.DOWN, EventSource.USER));
                         keyEvent.consume();
                     }
+                    if (keyEvent.getCode() == KeyCode.SPACE) {
+                        moveDown(new MoveEvent(EventType.DOWN, EventSource.USER));
+                        keyEvent.consume();
+                    }
                 }
                 if (keyEvent.getCode() == KeyCode.N) {
                     newGame(null);
@@ -146,7 +150,7 @@ public class GuiController implements Initializable {
         brickPanel.setLayoutX(gamePanel.getLayoutX() + brick.getxPosition() * brickPanel.getVgap() + brick.getxPosition() * BRICK_SIZE);
         brickPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getyPosition() * brickPanel.getHgap() + brick.getyPosition() * BRICK_SIZE);
 
-        generatePreviewPanel(brick.getNextBrickData());
+//        generatePreviewPanel(brick.getNextBrickData());
 
 
         timeLine = new Timeline(new KeyFrame(
@@ -191,18 +195,18 @@ public class GuiController implements Initializable {
         return returnPaint;
     }
 
-    private void generatePreviewPanel(int[][] nextBrickData) {
-        nextBrick.getChildren().clear();
-        for (int i = 0; i < nextBrickData.length; i++) {
-            for (int j = 0; j < nextBrickData[i].length; j++) {
-                Rectangle rectangle = new Rectangle(BRICK_SIZE, BRICK_SIZE);
-                setRectangleData(nextBrickData[i][j], rectangle);
-                if (nextBrickData[i][j] != 0) {
-                    nextBrick.add(rectangle, j, i);
-                }
-            }
-        }
-    }
+//    private void generatePreviewPanel(int[][] nextBrickData) {
+//        nextBrick.getChildren().clear();
+//        for (int i = 0; i < nextBrickData.length; i++) {
+//            for (int j = 0; j < nextBrickData[i].length; j++) {
+//                Rectangle rectangle = new Rectangle(BRICK_SIZE, BRICK_SIZE);
+//                setRectangleData(nextBrickData[i][j], rectangle);
+//                if (nextBrickData[i][j] != 0) {
+//                    nextBrick.add(rectangle, j, i);
+//                }
+//            }
+//        }
+//    }
 
     private void refreshBrick(ViewData brick) {
         if (isPause.getValue() == Boolean.FALSE) {
@@ -213,7 +217,7 @@ public class GuiController implements Initializable {
                     setRectangleData(brick.getBrickData()[i][j], rectangles[i][j]);
                 }
             }
-            generatePreviewPanel(brick.getNextBrickData());
+//            generatePreviewPanel(brick.getNextBrickData());
         }
     }
 
@@ -232,6 +236,18 @@ public class GuiController implements Initializable {
     }
 
     private void moveDown(MoveEvent event) {
+        if (isPause.getValue() == Boolean.FALSE) {
+            DownData downData = eventListener.onDownEvent(event);
+            if (downData.getClearRow() != null && downData.getClearRow().getLinesRemoved() > 0) {
+                NotificationPanel notificationPanel = new NotificationPanel("+" + downData.getClearRow().getScoreBonus());
+                groupNotification.getChildren().add(notificationPanel);
+                notificationPanel.showScore(groupNotification.getChildren());
+            }
+            refreshBrick(downData.getViewData());
+        }
+//        gamePanel.requestFocus();
+    }
+    private void moveBySpace(MoveEvent event) {
         if (isPause.getValue() == Boolean.FALSE) {
             DownData downData = eventListener.onDownEvent(event);
             if (downData.getClearRow() != null && downData.getClearRow().getLinesRemoved() > 0) {
